@@ -1,40 +1,34 @@
 const express = require("express");
 const app = express();
 
-const port = 5000;
+port = 5000;
 app.use(express.json());
-
-
-app.get("/", (req, res) => {
-  res.send("Welcome to the Home Page!");
-});
-
 
 app.get("/signup", (req, res) => {
   const { username, email, password, dob } = req.query;
 
-
-  if (!username || !/^[a-zA-Z]+$/.test(username)) {
-        return res.status(400).json({ error: "Username should contain only letters and not be empty." });
+  // Validating username
+  if (username && !/^[a-zA-z]+$/.test(username)) {
+    res.status(400).json({
+      error: "Username should not be empty",
+    });
   }
-
   // Validating Email
-  if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-    return res.status(400).json({ error: "Invalid email format." });
-  }
 
+  if (email && !/^[.\s@][^\s@]+$ /.test(email)) {
+    res.status(400).json({ error: "Email Cannot be Empty" });
+  }
   // Validating Password
-  if (!password || !/^[a-zA-Z\d@$&!]{8,16}$/.test(password)) {
-    return res.status(400).json({ error: "Password must be 8-16 characters long and can include letters, numbers, and special characters (@, $, &, !)." });
+
+  if (password && !/^[a-zA-Z] [.\d] [^@$&!] {8,16} +$ /.test(password)) {
+    res.status(400).json({
+      error:
+        "Password length should be greater than 8 and less than 16 characters",
+    });
   }
-
-  res.send("Signup Successful");
+  res.send("Signup Sucessful");
 });
 
-// Start Server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.listen(port, (req, res) => {
+  console.log(`This server running on localhost:${port}`);
 });
-    
-
-
