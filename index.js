@@ -4,18 +4,18 @@ const app = express();
 const port = 5000;
 app.use(express.json());
 
-// Home Route
+
 app.get("/", (req, res) => {
   res.send("Welcome to the Home Page!");
 });
 
-// Signup Route
+
 app.get("/signup", (req, res) => {
   const { username, email, password, dob } = req.query;
 
-  // Validating username
+
   if (!username || !/^[a-zA-Z]+$/.test(username)) {
-    return res.status(400).json({ error: "Username should contain only letters and not be empty." });
+        return res.status(400).json({ error: "Username should contain only letters and not be empty." });
   }
 
   // Validating Email
@@ -35,3 +35,4 @@ app.get("/signup", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+    
